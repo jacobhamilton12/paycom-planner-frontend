@@ -37,6 +37,7 @@ const months = [
 class MonthCalendar extends Component {
   state = {
     month: new Date().getMonth(),
+    year: new Date().getFullYear(),
   };
 
   render() {
@@ -50,7 +51,12 @@ class MonthCalendar extends Component {
           </Thead>
           <tbody>
             {weekIds.map((id) => (
-              <Week key={"week" + id} id={id} />
+              <Week
+                year={this.state.year}
+                month={this.state.month}
+                key={"week" + id}
+                id={id}
+              />
             ))}
           </tbody>
         </Table>

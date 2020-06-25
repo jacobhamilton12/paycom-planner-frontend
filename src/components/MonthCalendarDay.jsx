@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 const Td = styled.td`
   border: 1px solid black;
-  font-size: calc(9px + 0.5vw);
+  font-size: calc(6px + 0.5vw);
 `;
 
 const Box = styled.div`
@@ -20,6 +20,7 @@ class Day extends Component {
     return (
       <Td>
         {this.props.day}
+        {this.props.datenum > 0 ? ", " + this.props.datenum : ""}
         <Box></Box>
       </Td>
     );
