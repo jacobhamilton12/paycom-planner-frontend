@@ -56,6 +56,7 @@ class MonthCalendar extends Component {
                 month={this.state.month}
                 key={"week" + id}
                 id={id}
+                toggle={this.props.toggle}
               />
             ))}
           </tbody>

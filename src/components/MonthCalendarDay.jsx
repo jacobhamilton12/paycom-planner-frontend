@@ -12,16 +12,20 @@ const Box = styled.div`
   display: block;
   margin-right: -2px;
   margin-left: -2px;
+  cursor: pointer;
 `;
 
 class Day extends Component {
   state = {};
+  handleClick = () => {
+    this.props.toggle();
+  };
   render() {
     return (
       <Td>
         {this.props.day}
         {this.props.datenum > 0 ? ", " + this.props.datenum : ""}
-        <Box></Box>
+        <Box onClick={this.handleClick}></Box>
       </Td>
     );
   }

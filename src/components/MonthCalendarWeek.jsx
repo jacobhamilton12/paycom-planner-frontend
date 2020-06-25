@@ -37,6 +37,7 @@ const Week = (props) => {
           key={day + props.id}
           day={day}
           datenum={getDate(day, props.month + 1, props.year)}
+          toggle={props.toggle}
         />
       ))}
     </tr>

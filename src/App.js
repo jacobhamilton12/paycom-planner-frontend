@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import MonthCalendar from "./components/MonthCalendar";
 import SimpleMenu from "./components/SimpleMenu";
 import { render } from "@testing-library/react";
+import EventForumPopUp from "./components/EventForumPopUp";
 
 const Title = styled.h1`
   color: yellowgreen;
@@ -15,6 +16,12 @@ const Title = styled.h1`
 class App extends Component {
   state = {
     menuText: "Month",
+    seen: false,
+  };
+  togglePop = () => {
+    this.setState({
+      seen: !this.state.seen,
+    });
   };
   handleMenuText = (menuText) => {
     this.setState({ menuText: menuText });
@@ -27,7 +34,13 @@ class App extends Component {
           handlemenutext={this.handleMenuText}
           menutext={this.state.menuText}
         ></SimpleMenu>
-        <MonthCalendar />
+        <div className="btn" onClick={this.togglePop}>
+          <button>New User?</button>
+        </div>
+        <MonthCalendar toggle={this.togglePop} />
+        <div>
+          {this.state.seen ? <EventForumPopUp toggle={this.togglePop} /> : null}
+        </div>
       </div>
     );
   }
