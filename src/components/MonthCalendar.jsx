@@ -5,14 +5,34 @@ import styled from "@emotion/styled";
 
 const Table = styled.table`
   border: 1px solid black;
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  margin-top: 5%;
+  width: 80%;
+  min-width: 450px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 0;
   table-layout: fixed;
+`;
+const Thead = styled.thead`
+  margin-bottom: 0;
+  padding-bottom: 0;
 `;
 
 const weekIds = [1, 2, 3, 4, 5];
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 class MonthCalendar extends Component {
   state = {
@@ -22,11 +42,17 @@ class MonthCalendar extends Component {
   render() {
     return (
       <div>
-        <thead>{this.state.month}</thead>
         <Table>
-          {weekIds.map((id) => (
-            <Week key={"week" + id} id={id} />
-          ))}
+          <Thead>
+            <tr>
+              <td>{months[this.state.month]}</td>
+            </tr>
+          </Thead>
+          <tbody>
+            {weekIds.map((id) => (
+              <Week key={"week" + id} id={id} />
+            ))}
+          </tbody>
         </Table>
       </div>
     );

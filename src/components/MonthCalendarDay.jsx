@@ -3,14 +3,15 @@ import styled from "@emotion/styled";
 
 const Td = styled.td`
   border: 1px solid black;
+  font-size: calc(9px + 0.5vw);
 `;
 
 const Box = styled.div`
   border: 1px solid black;
   height: 10vh;
   display: block;
-  margin-left: 0.2%;
-  width: 98.5%;
+  margin-right: -2px;
+  margin-left: -2px;
 `;
 
 class Day extends Component {
