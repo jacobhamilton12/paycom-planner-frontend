@@ -7,7 +7,6 @@ const Td = styled.td`
 `;
 
 const Box = styled.div`
-  display: flex;
   justify-content: center;
   border: 1px solid black;
   height: 10vh;
@@ -49,6 +48,9 @@ class Day extends Component {
           <EventBox>Coding Challenge</EventBox>
           <EventBox>The Phoenix Project</EventBox>
           <EventBox>Coding Challenge</EventBox>
+          <EventBox>The Phoenix Project</EventBox>
+          <EventBox>Coding Challenge</EventBox>
+          <EventBox>The Phoenix Project</EventBox>
           <EventBox>The Phoenix Project</EventBox>
           <EventBox>Coding Challenge</EventBox>
           <EventBox>The Phoenix Project</EventBox>

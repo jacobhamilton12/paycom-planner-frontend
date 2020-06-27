@@ -12,6 +12,7 @@ const Table = styled.table`
   transform: translateX(-50%);
   margin-top: 0;
   table-layout: fixed;
+  background: white;
 `;
 const Thead = styled.thead`
   margin-bottom: 0;
