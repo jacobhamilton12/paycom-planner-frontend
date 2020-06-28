@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -6,6 +6,7 @@ import {
   KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
+import EventDayContainer from "./EventDayContainer";
 
 const PopUpOuter = styled.div`
   position: fixed;
@@ -75,6 +76,8 @@ const CenterFlexBox = styled.div`
 
 export default function PopUp(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [eventName, setEventName] = useState("");
+  const [eventDesc, setEventDesc] = useState("");
 
   const handleClick = () => {
     props.toggle();
@@ -82,6 +85,15 @@ export default function PopUp(props) {
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
+
+  function handleSubmit() {
+    props.handleSubmit({
+      name: eventName,
+      datenum: props.datenum,
+      desc: eventDesc,
+    });
+  }
+
   return (
     <PopUpOuter>
       <PopUpInner>
@@ -91,7 +103,7 @@ export default function PopUp(props) {
         <h2>Create New Event:</h2>
         <CenterFlexBox>
           <label>Event Name:</label>
-          <Input type="text" />
+          <Input onChange={(e) => setEventName(e.target.value)} type="text" />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
               margin="normal"
@@ -106,9 +118,14 @@ export default function PopUp(props) {
           </MuiPickersUtilsProvider>
         </CenterFlexBox>
         <P>Description:</P>
-        <TextArea name="paragraph_text" cols="50" rows="10"></TextArea>
+        <TextArea
+          onChange={(e) => setEventDesc(e.target.value)}
+          name="paragraph_text"
+          cols="50"
+          rows="10"
+        ></TextArea>
         <br></br>
-        <input type="submit" value="Submit" />
+        <input onClick={handleSubmit} type="submit" value="Submit" />
       </PopUpInner>
     </PopUpOuter>
   );

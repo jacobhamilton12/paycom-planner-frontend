@@ -16,6 +16,17 @@ const Title = styled.h1`
 function App(props) {
   const [menuText, setMenuText] = useState("Month");
   const [seen, setSeen] = useState(false);
+  const [eventDate, setEventDate] = useState("");
+  const [popUpData, setPopUpData] = useState([]);
+  function handlePopUp(dayNum) {
+    setSeen(!seen);
+    setEventDate(dayNum);
+  }
+
+  function handlePopUpData(data) {
+    setSeen(!seen);
+    setPopUpData([...popUpData, data]);
+  }
 
   return (
     <div className="App">
@@ -24,8 +35,16 @@ function App(props) {
         handlemenutext={(text) => setMenuText(text)}
         menutext={menuText}
       ></SimpleMenu>
-      <MonthCalendar toggle={() => setSeen(!seen)} />
-      <div>{seen ? <PopUp toggle={() => setSeen(!seen)} /> : null}</div>
+      <MonthCalendar events={popUpData} toggle={handlePopUp} />
+      <div>
+        {seen ? (
+          <PopUp
+            datenum={eventDate}
+            toggle={() => setSeen(!seen)}
+            handleSubmit={handlePopUpData}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }

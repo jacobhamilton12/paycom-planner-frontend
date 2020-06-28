@@ -57,6 +57,7 @@ class MonthCalendar extends Component {
                 month={this.state.month}
                 key={"week" + id}
                 id={id}
+                events={this.props.events}
                 toggle={this.props.toggle}
               />
             ))}
