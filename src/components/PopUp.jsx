@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -6,7 +6,7 @@ import {
   KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import EventDayContainer from "./EventDayContainer";
+import { EventContexts } from "./EventContexts";
 
 const PopUpOuter = styled.div`
   position: fixed;
@@ -78,18 +78,19 @@ export default function PopUp(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventName, setEventName] = useState("");
   const [eventDesc, setEventDesc] = useState("");
+  const { seen, setSeen, handlePopUpData, eventDate } = useContext(
+    EventContexts
+  );
 
-  const handleClick = () => {
-    props.toggle();
-  };
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
   function handleSubmit() {
-    props.handleSubmit({
+    handlePopUpData({
       name: eventName,
-      datenum: props.datenum,
+      date: eventDate,
+      time: selectedDate,
       desc: eventDesc,
     });
   }
@@ -98,7 +99,7 @@ export default function PopUp(props) {
     <PopUpOuter>
       <PopUpInner>
         <RightFlexBox>
-          <XButton onClick={handleClick}>&times;</XButton>
+          <XButton onClick={() => setSeen(!seen)}>&times;</XButton>
         </RightFlexBox>
         <h2>Create New Event:</h2>
         <CenterFlexBox>

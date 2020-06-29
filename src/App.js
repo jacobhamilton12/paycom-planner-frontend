@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./App.css";
 //import { Calendar } from "@material-ui/pickers";
 //import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -6,8 +6,8 @@ import "./App.css";
 import styled from "@emotion/styled";
 import MonthCalendar from "./components/MonthCalendar";
 import SimpleMenu from "./components/SimpleMenu";
-import { render } from "@testing-library/react";
 import PopUp from "./components/PopUp";
+import { EventContexts } from "./components/EventContexts";
 
 const Title = styled.h1`
   color: yellowgreen;
@@ -15,18 +15,7 @@ const Title = styled.h1`
 
 function App(props) {
   const [menuText, setMenuText] = useState("Month");
-  const [seen, setSeen] = useState(false);
-  const [eventDate, setEventDate] = useState("");
-  const [popUpData, setPopUpData] = useState([]);
-  function handlePopUp(dayNum) {
-    setSeen(!seen);
-    setEventDate(dayNum);
-  }
-
-  function handlePopUpData(data) {
-    setSeen(!seen);
-    setPopUpData([...popUpData, data]);
-  }
+  const { seen } = useContext(EventContexts);
 
   return (
     <div className="App">
@@ -35,16 +24,8 @@ function App(props) {
         handlemenutext={(text) => setMenuText(text)}
         menutext={menuText}
       ></SimpleMenu>
-      <MonthCalendar events={popUpData} toggle={handlePopUp} />
-      <div>
-        {seen ? (
-          <PopUp
-            datenum={eventDate}
-            toggle={() => setSeen(!seen)}
-            handleSubmit={handlePopUpData}
-          />
-        ) : null}
-      </div>
+      <MonthCalendar />
+      <div>{seen ? <PopUp /> : null}</div>
     </div>
   );
 }

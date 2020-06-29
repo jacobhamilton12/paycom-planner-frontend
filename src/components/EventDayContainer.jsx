@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "@emotion/styled";
+import { EventContexts } from "./EventContexts";
 
 const Box = styled.div`
   justify-content: center;
@@ -29,9 +30,11 @@ const EventBox = styled.div`
   text-overflow: ellipsis;
 `;
 
-export default function EventDayContainer({ events, datenum, toggle }) {
+export default function EventDayContainer({ dateNum }) {
+  const { handlePopUp, eventsData: events } = useContext(EventContexts);
+
   const handleClick = (e) => {
-    toggle(datenum);
+    handlePopUp(dateNum);
   };
 
   const handleEventClick = (e) => {
@@ -41,8 +44,13 @@ export default function EventDayContainer({ events, datenum, toggle }) {
   return (
     <Box onClick={handleClick}>
       {events.map((event) =>
-        event.datenum === datenum ? (
-          <EventBox onClick={handleEventClick}>{event.name}</EventBox>
+        event.date === dateNum ? (
+          <EventBox
+            key={event.date + event.name + event.time}
+            onClick={handleEventClick}
+          >
+            {event.name}
+          </EventBox>
         ) : null
       )}
     </Box>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import EventDayContainer from "./EventDayContainer";
 
@@ -14,17 +14,13 @@ const GrayBox = styled.div`
   background: gray;
 `;
 
-function Day({ key, day, datenum, toggle, events }) {
+function Day({ day, dateNum }) {
   return (
     <Td>
-      {datenum > 0 ? (
+      {dateNum > 0 ? (
         <div>
-          {day + ", " + datenum}
-          <EventDayContainer
-            events={events}
-            datenum={datenum}
-            toggle={toggle}
-          />
+          {day + ", " + dateNum}
+          <EventDayContainer dateNum={dateNum} />
         </div>
       ) : (
         <GrayBox />

@@ -4,9 +4,12 @@ import "./index.css";
 import App from "./App";
 import "fontsource-roboto";
 import * as serviceWorker from "./serviceWorker";
+import { EventsProvider } from "./components/EventContexts";
 
 ReactDOM.render(
-  <App />,
+  <EventsProvider>
+    <App />
+  </EventsProvider>,
 
   document.getElementById("root")
 );

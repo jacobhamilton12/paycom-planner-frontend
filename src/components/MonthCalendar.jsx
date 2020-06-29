@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { getMonth } from "date-fns";
 import Week from "./MonthCalendarWeek";
 import styled from "@emotion/styled";
 
@@ -57,8 +56,6 @@ class MonthCalendar extends Component {
                 month={this.state.month}
                 key={"week" + id}
                 id={id}
-                events={this.props.events}
-                toggle={this.props.toggle}
               />
             ))}
           </tbody>

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Day from "./MonthCalendarDay";
 
 const days = [
@@ -13,8 +13,8 @@ const days = [
 let num = 0;
 const getDate = (day, month, year) => {
   let date = new Date(month + " 1, " + year);
-  if (num == 0) {
-    if (day == days[date.getDay()]) {
+  if (num === 0) {
+    if (day === days[date.getDay()]) {
       num += 1;
       return num;
     } else {
@@ -36,9 +36,7 @@ const Week = (props) => {
         <Day
           key={day + props.id}
           day={day}
-          datenum={getDate(day, props.month + 1, props.year)}
-          toggle={props.toggle}
-          events={props.events}
+          dateNum={getDate(day, props.month + 1, props.year)}
         />
       ))}
     </tr>
