@@ -18,7 +18,14 @@ export const EventsProvider = (props) => {
 
   return (
     <EventContexts.Provider
-      value={{ seen, eventDate, eventsData, handlePopUp, handlePopUpData }}
+      value={{
+        seen,
+        setSeen,
+        eventDate,
+        eventsData,
+        handlePopUp,
+        handlePopUpData,
+      }}
     >
       {props.children}
     </EventContexts.Provider>
