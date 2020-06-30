@@ -65,10 +65,14 @@ const ButtonWrapper = styled.div`
   transform: translateX(-50%);
 `;
 
-export default function CurrentEventPopUp(props) {
-  const { setIsEventPopUpOpen, eventId, eventsData, deleteEvent } = useContext(
-    EventContexts
-  );
+export default function CurrentEventPopUp() {
+  const {
+    setIsEventPopUpOpen,
+    eventId,
+    eventsData,
+    deleteEvent,
+    editEvent,
+  } = useContext(EventContexts);
   const [eventName] = useState(eventsData[eventId].name);
   const [eventDesc] = useState(eventsData[eventId].desc);
   const [eventDate] = useState(eventsData[eventId].date);
@@ -84,7 +88,9 @@ export default function CurrentEventPopUp(props) {
           <h6>Description: </h6>
           <Paragraph>{eventDesc}</Paragraph>
           <ButtonWrapper>
-            <Button variant="warning">Edit</Button>
+            <Button variant="warning" onClick={() => editEvent(eventId)}>
+              Edit
+            </Button>
             <Button
               style={{ marginLeft: "10px" }}
               onClick={() => deleteEvent(eventId)}

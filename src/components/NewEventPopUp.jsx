@@ -80,6 +80,7 @@ export default function NewEventPopUp() {
     setIsNewEventPopUpOpen,
     handleNewEventData,
     eventDate,
+    eventEdit,
   } = useContext(EventContexts);
 
   let eventDateCopy = new Date(eventDate.getTime());
@@ -90,8 +91,8 @@ export default function NewEventPopUp() {
   eventDateCopy.setMilliseconds(currentTime.getMilliseconds());
 
   const [selectedDate, setSelectedDate] = useState(eventDateCopy);
-  const [eventName, setEventName] = useState("");
-  const [eventDesc, setEventDesc] = useState("");
+  const [eventName, setEventName] = useState(eventEdit.name);
+  const [eventDesc, setEventDesc] = useState(eventEdit.desc);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -116,7 +117,11 @@ export default function NewEventPopUp() {
         <h2>Create New Event:</h2>
         <CenterFlexBox>
           <label>Event Name:</label>
-          <Input onChange={(e) => setEventName(e.target.value)} type="text" />
+          <Input
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
+            type="text"
+          />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardTimePicker
               margin="normal"
@@ -133,6 +138,7 @@ export default function NewEventPopUp() {
         <P>Description:</P>
         <TextArea
           onChange={(e) => setEventDesc(e.target.value)}
+          value={eventDesc}
           name="paragraph_text"
           cols="50"
           rows="10"
