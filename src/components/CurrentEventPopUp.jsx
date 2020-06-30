@@ -71,7 +71,7 @@ export default function CurrentEventPopUp(props) {
   );
   const [eventName] = useState(eventsData[eventId].name);
   const [eventDesc] = useState(eventsData[eventId].desc);
-  const [eventTime] = useState(eventsData[eventId].time);
+  const [eventDate] = useState(eventsData[eventId].date);
   return (
     <PopUpOuter>
       <PopUpInner>
@@ -80,15 +80,17 @@ export default function CurrentEventPopUp(props) {
         </RightFlexBox>
         <h2>{eventName}</h2>
         <CenterBox>
-          <h6>{"Time: " + eventTime.toLocaleString()}</h6>
+          <h6>{"Time: " + eventDate.toLocaleString()}</h6>
           <h6>Description: </h6>
           <Paragraph>{eventDesc}</Paragraph>
           <ButtonWrapper>
+            <Button variant="warning">Edit</Button>
             <Button
+              style={{ marginLeft: "10px" }}
               onClick={() => deleteEvent(eventId)}
-              variant="outline-danger"
+              variant="danger"
             >
-              Delete Event
+              Delete
             </Button>
           </ButtonWrapper>
         </CenterBox>

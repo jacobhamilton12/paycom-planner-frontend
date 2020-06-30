@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import Week from "./MonthCalendarWeek";
 import styled from "@emotion/styled";
+import { EventContexts } from "./EventContexts";
 
 const Table = styled.table`
   border: 1px solid black;
@@ -34,35 +35,25 @@ const months = [
   "December",
 ];
 
-class MonthCalendar extends Component {
-  state = {
-    month: new Date().getMonth(),
-    year: new Date().getFullYear(),
-  };
+function MonthCalendar() {
+  const { month, year } = useContext(EventContexts);
 
-  render() {
-    return (
-      <div>
-        <Table>
-          <Thead>
-            <tr>
-              <td>{months[this.state.month]}</td>
-            </tr>
-          </Thead>
-          <tbody>
-            {weekIds.map((id) => (
-              <Week
-                year={this.state.year}
-                month={this.state.month}
-                key={"week" + id}
-                id={id}
-              />
-            ))}
-          </tbody>
-        </Table>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Table>
+        <Thead>
+          <tr>
+            <td>{months[month]}</td>
+          </tr>
+        </Thead>
+        <tbody>
+          {weekIds.map((id) => (
+            <Week year={year} month={month} key={"week" + id} id={id} />
+          ))}
+        </tbody>
+      </Table>
+    </div>
+  );
 }
 
 export default MonthCalendar;

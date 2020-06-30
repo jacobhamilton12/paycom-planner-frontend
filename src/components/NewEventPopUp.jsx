@@ -74,16 +74,24 @@ const CenterFlexBox = styled.div`
   justify-content: center;
 `;
 
-export default function NewEventPopUp(props) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [eventName, setEventName] = useState("");
-  const [eventDesc, setEventDesc] = useState("");
+export default function NewEventPopUp() {
   const {
     isNewEventPopUpOpen,
     setIsNewEventPopUpOpen,
     handleNewEventData,
     eventDate,
   } = useContext(EventContexts);
+
+  let eventDateCopy = new Date(eventDate.getTime());
+  let currentTime = new Date();
+  eventDateCopy.setHours(currentTime.getHours());
+  eventDateCopy.setMinutes(currentTime.getMinutes());
+  eventDateCopy.setSeconds(currentTime.getSeconds());
+  eventDateCopy.setMilliseconds(currentTime.getMilliseconds());
+
+  const [selectedDate, setSelectedDate] = useState(eventDateCopy);
+  const [eventName, setEventName] = useState("");
+  const [eventDesc, setEventDesc] = useState("");
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -92,8 +100,7 @@ export default function NewEventPopUp(props) {
   function handleSubmit() {
     handleNewEventData({
       name: eventName,
-      date: eventDate,
-      time: selectedDate,
+      date: selectedDate,
       desc: eventDesc,
     });
   }

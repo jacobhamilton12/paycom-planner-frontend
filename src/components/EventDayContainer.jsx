@@ -35,12 +35,11 @@ export default function EventDayContainer({ dateNum }) {
     EventContexts
   );
 
-  const handleEmptyClick = (e) => {
+  const handleEmptyClick = () => {
     openNewEventPopUp(dateNum);
   };
 
   const handleEventClick = (e, event) => {
-    console.log(events.indexOf(event));
     openEventView(events.indexOf(event));
     e.stopPropagation();
   };
@@ -48,9 +47,9 @@ export default function EventDayContainer({ dateNum }) {
   return (
     <Box onClick={handleEmptyClick}>
       {events.map((event) =>
-        event.date === dateNum ? (
+        event.date.getDate() === dateNum ? (
           <EventBox
-            key={event.date + event.name + event.time}
+            key={event.name + event.date.getTime()}
             onClick={(e) => handleEventClick(e, event)}
           >
             {event.name}
