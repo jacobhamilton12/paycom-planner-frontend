@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import { EventContexts } from "./EventContexts";
+import Button from "react-bootstrap/Button";
 
 const PopUpOuter = styled.div`
   position: fixed;
@@ -57,8 +58,15 @@ const Paragraph = styled.div`
   margin: auto;
 `;
 
+const ButtonWrapper = styled.div`
+  bottom: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 export default function CurrentEventPopUp(props) {
-  const { setIsEventPopUpOpen, eventId, eventsData } = useContext(
+  const { setIsEventPopUpOpen, eventId, eventsData, deleteEvent } = useContext(
     EventContexts
   );
   const [eventName] = useState(eventsData[eventId].name);
@@ -75,6 +83,14 @@ export default function CurrentEventPopUp(props) {
           <h6>{"Time: " + eventTime.toLocaleString()}</h6>
           <h6>Description: </h6>
           <Paragraph>{eventDesc}</Paragraph>
+          <ButtonWrapper>
+            <Button
+              onClick={() => deleteEvent(eventId)}
+              variant="outline-danger"
+            >
+              Delete Event
+            </Button>
+          </ButtonWrapper>
         </CenterBox>
       </PopUpInner>
     </PopUpOuter>

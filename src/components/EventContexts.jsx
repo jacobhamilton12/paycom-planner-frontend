@@ -15,14 +15,19 @@ export const EventsProvider = (props) => {
 
   function openNewEventPopUp(dayNum) {
     setEventDate(dayNum);
-    setIsNewEventPopUpOpen(!isNewEventPopUpOpen);
+    setIsNewEventPopUpOpen(true);
   }
 
   function openEventView(index) {
-    console.log("here" + index);
     setEventId(index);
-    setIsEventPopUpOpen(!isEventPopUpOpen);
-    console.log(isEventPopUpOpen);
+    setIsEventPopUpOpen(true);
+  }
+
+  function deleteEvent(index) {
+    setIsEventPopUpOpen(false);
+    let array = [...eventsData];
+    array.splice(index, 1);
+    setEventsData(array);
   }
 
   return (
@@ -38,6 +43,7 @@ export const EventsProvider = (props) => {
         eventId,
         isEventPopUpOpen,
         setIsEventPopUpOpen,
+        deleteEvent,
       }}
     >
       {props.children}
