@@ -31,23 +31,27 @@ const EventBox = styled.div`
 `;
 
 export default function EventDayContainer({ dateNum }) {
-  const { handlePopUp, eventsData: events } = useContext(EventContexts);
+  const { openEventView, openNewEventPopUp, eventsData: events } = useContext(
+    EventContexts
+  );
 
-  const handleClick = (e) => {
-    handlePopUp(dateNum);
+  const handleEmptyClick = (e) => {
+    openNewEventPopUp(dateNum);
   };
 
-  const handleEventClick = (e) => {
+  const handleEventClick = (e, event) => {
+    console.log(events.indexOf(event));
+    openEventView(events.indexOf(event));
     e.stopPropagation();
   };
 
   return (
-    <Box onClick={handleClick}>
+    <Box onClick={handleEmptyClick}>
       {events.map((event) =>
         event.date === dateNum ? (
           <EventBox
             key={event.date + event.name + event.time}
-            onClick={handleEventClick}
+            onClick={(e) => handleEventClick(e, event)}
           >
             {event.name}
           </EventBox>

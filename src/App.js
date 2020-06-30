@@ -6,7 +6,8 @@ import "./App.css";
 import styled from "@emotion/styled";
 import MonthCalendar from "./components/MonthCalendar";
 import SimpleMenu from "./components/SimpleMenu";
-import PopUp from "./components/PopUp";
+import NewEventPopUp from "./components/NewEventPopUp";
+import CurrentEventPopUp from "./components/CurrentEventPopUp";
 import { EventContexts } from "./components/EventContexts";
 
 const Title = styled.h1`
@@ -15,7 +16,7 @@ const Title = styled.h1`
 
 function App(props) {
   const [menuText, setMenuText] = useState("Month");
-  const { seen } = useContext(EventContexts);
+  const { isNewEventPopUpOpen, isEventPopUpOpen } = useContext(EventContexts);
 
   return (
     <div className="App">
@@ -25,7 +26,8 @@ function App(props) {
         menutext={menuText}
       ></SimpleMenu>
       <MonthCalendar />
-      <div>{seen ? <PopUp /> : null}</div>
+      <div>{isNewEventPopUpOpen ? <NewEventPopUp /> : null}</div>
+      <div>{isEventPopUpOpen ? <CurrentEventPopUp /> : null}</div>
     </div>
   );
 }

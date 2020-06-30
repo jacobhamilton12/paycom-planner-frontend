@@ -74,20 +74,23 @@ const CenterFlexBox = styled.div`
   justify-content: center;
 `;
 
-export default function PopUp(props) {
+export default function NewEventPopUp(props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [eventName, setEventName] = useState("");
   const [eventDesc, setEventDesc] = useState("");
-  const { seen, setSeen, handlePopUpData, eventDate } = useContext(
-    EventContexts
-  );
+  const {
+    isNewEventPopUpOpen,
+    setIsNewEventPopUpOpen,
+    handleNewEventData,
+    eventDate,
+  } = useContext(EventContexts);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
   function handleSubmit() {
-    handlePopUpData({
+    handleNewEventData({
       name: eventName,
       date: eventDate,
       time: selectedDate,
@@ -99,7 +102,9 @@ export default function PopUp(props) {
     <PopUpOuter>
       <PopUpInner>
         <RightFlexBox>
-          <XButton onClick={() => setSeen(!seen)}>&times;</XButton>
+          <XButton onClick={() => setIsNewEventPopUpOpen(!isNewEventPopUpOpen)}>
+            &times;
+          </XButton>
         </RightFlexBox>
         <h2>Create New Event:</h2>
         <CenterFlexBox>
