@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Week from "./MonthCalendarWeek";
 import styled from "@emotion/styled";
 import { EventContexts } from "./EventContexts";
+import SimpleMenu from "./SimpleMenu";
 
 const Table = styled.table`
   border: 1px solid black;
@@ -37,6 +38,7 @@ const months = [
 
 function MonthCalendar() {
   const { month, year } = useContext(EventContexts);
+  const [menuText, setMenuText] = useState("Month");
 
   return (
     <div>
@@ -44,6 +46,12 @@ function MonthCalendar() {
         <Thead>
           <tr>
             <td>{months[month]}</td>
+            <td>
+              <SimpleMenu
+                handlemenutext={(text) => setMenuText(text)}
+                menutext={menuText}
+              ></SimpleMenu>
+            </td>
           </tr>
         </Thead>
         <tbody>

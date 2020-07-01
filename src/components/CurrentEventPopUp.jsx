@@ -17,10 +17,13 @@ const PopUpOuter = styled.div`
 
 const PopUpInner = styled.div`
   position: absolute;
-  left: 25%;
-  right: 25%;
-  top: 25%;
-  bottom: 25%;
+  width: 50%;
+  height: 50%;
+  min-width: 350px;
+  position: fixed;
+  left: 50%;
+  bottom: 35%;
+  transform: translateX(-50%);
   margin: auto;
   border-radius: 20px;
   background: white;

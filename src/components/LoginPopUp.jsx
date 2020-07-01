@@ -1,0 +1,105 @@
+import React, { useState, useContext } from "react";
+import styled from "@emotion/styled";
+import Button from "react-bootstrap/Button";
+import { LoginContext } from "./LoginContext";
+
+const PopUpOuter = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const PopUpInner = styled.div`
+  position: absolute;
+  width: 30%;
+  height: 30%;
+  min-width: 350px;
+  position: fixed;
+  left: 50%;
+  bottom: 50%;
+  transform: translateX(-50%);
+  margin: auto;
+  border-radius: 20px;
+  background: white;
+`;
+
+const XButton = styled.div`
+  border: 1px solid lightgray;
+  color: white;
+  background: lightgray;
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+  line-height: 17px;
+  border-radius: 50%;
+`;
+
+const RightFlexBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+`;
+const CenterFlexBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+const Input = styled.input`
+  width: 70%;
+  padding: 0.6em 0.7em;
+  margin: 5px 5px 5px 0px;
+  border: 1px solid black;
+  border-radius: 3px;
+  background-color: var(--white);
+  color: var(--fc-dark);
+  line-height: 1.15384615;
+`;
+
+const Label = styled.label`
+  margin: 0;
+`;
+
+export default function LoginPopUp() {
+  const { setIsLoginPopUpOpen, handleLoginData } = useContext(LoginContext);
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+
+  function handleSubmit() {
+    handleLoginData([username, password]);
+  }
+
+  return (
+    <PopUpOuter>
+      <PopUpInner>
+        <RightFlexBox>
+          <XButton onClick={() => setIsLoginPopUpOpen(false)}>&times;</XButton>
+        </RightFlexBox>
+        <h2>Login</h2>
+        <CenterFlexBox>
+          <Label>User Name: </Label>
+          <Input
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+            type="text"
+          />
+          <Label>Password:</Label>
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+          />
+        </CenterFlexBox>
+        <input onClick={handleSubmit} type="submit" value="Submit" />
+      </PopUpInner>
+    </PopUpOuter>
+  );
+}

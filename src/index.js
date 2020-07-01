@@ -5,11 +5,14 @@ import App from "./App";
 import "fontsource-roboto";
 import * as serviceWorker from "./serviceWorker";
 import { EventsProvider } from "./components/EventContexts";
+import { LoginProvider } from "./components/LoginContext";
 
 ReactDOM.render(
-  <EventsProvider>
-    <App />
-  </EventsProvider>,
+  <LoginProvider>
+    <EventsProvider>
+      <App />
+    </EventsProvider>
+  </LoginProvider>,
 
   document.getElementById("root")
 );

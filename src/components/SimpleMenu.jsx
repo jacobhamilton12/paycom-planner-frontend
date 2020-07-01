@@ -7,6 +7,7 @@ export default function SimpleMenu(props) {
 
   return (
     <DropdownButton
+      className="btn-sm"
       variant="success"
       id="dropdown-basic-button"
       title={menutext}
