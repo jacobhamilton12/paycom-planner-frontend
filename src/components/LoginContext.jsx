@@ -12,7 +12,8 @@ export const LoginProvider = (props) => {
     function getCheck(){
       return axios.post(`/validate_user.php`, data)
           .then(res => {
-              return checkPass(res.data)
+              console.log(res.data);
+              return res.data;
           });
     }
     return getCheck().then(res => {
@@ -20,12 +21,7 @@ export const LoginProvider = (props) => {
     })
   }
 
-  function checkPass(data){
-    if(!data){
-      return "failed";
-    }
-    return "success";
-  }
+
 
   function handleSignup(data) {
     console.log(data);
