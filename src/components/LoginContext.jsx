@@ -5,10 +5,26 @@ export const LoginContext = createContext();
 
 export const LoginProvider = (props) => {
   const [isLoginPopUpOpen, setIsLoginPopUpOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleLoginData(data) {
-    setIsLoginPopUpOpen(false);
-    console.log(data);
+    function getCheck(){
+      return axios.post(`/validate_user.php`, data)
+          .then(res => {
+              return checkPass(res.data)
+          });
+    }
+    return getCheck().then(res => {
+      return res;
+    })
+  }
+
+  function checkPass(data){
+    if(!data){
+      return "failed";
+    }
+    return "success";
   }
 
   function handleSignup(data) {
@@ -16,6 +32,8 @@ export const LoginProvider = (props) => {
     axios.post(`/insert_user.php`, data)
     .then(res => console.log(res.data));
   }
+
+
 
   function openLoginPopUp() {
     setIsLoginPopUpOpen(true);

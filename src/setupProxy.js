@@ -10,4 +10,12 @@ module.exports = function(app){
             changeOrigin: true
         })
     );
+    app.use(
+        '/validate_user.php',
+            createProxyMiddleware({
+                target: "http://localhost/paycom-backend",
+                secure: false,
+                changeOrigin: true
+            })
+    );
 }

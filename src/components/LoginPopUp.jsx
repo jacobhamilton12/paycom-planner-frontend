@@ -74,7 +74,12 @@ export default function LoginPopUp() {
   const [password, setPassword] = useState("");
 
   function handleSubmit() {
-    handleLoginData({email, password});
+    handleLoginData({email, password})
+      .then(response => {
+        if(response === "success"){
+          setIsLoginPopUpOpen(false);
+        }
+      });
   }
 
   function handleSignUpButton() {
