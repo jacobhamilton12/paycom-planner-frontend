@@ -69,12 +69,16 @@ const Label = styled.label`
 `;
 
 export default function LoginPopUp() {
-  const { setIsLoginPopUpOpen, handleLoginData } = useContext(LoginContext);
-  const [username, setUserName] = useState("");
+  const { setIsLoginPopUpOpen, handleLoginData, handleSignup } = useContext(LoginContext);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleSubmit() {
-    handleLoginData([username, password]);
+    handleLoginData({email, password});
+  }
+
+  function handleSignUpButton() {
+    handleSignup({email, password});
   }
 
   return (
@@ -85,10 +89,10 @@ export default function LoginPopUp() {
         </RightFlexBox>
         <h2>Login</h2>
         <CenterFlexBox>
-          <Label>User Name: </Label>
+          <Label>Email: </Label>
           <Input
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="text"
           />
           <Label>Password:</Label>
@@ -99,6 +103,7 @@ export default function LoginPopUp() {
           />
         </CenterFlexBox>
         <input onClick={handleSubmit} type="submit" value="Submit" />
+        <input onClick={handleSignUpButton} type="submit" value="Sign Up"/>
       </PopUpInner>
     </PopUpOuter>
   );
