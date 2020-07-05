@@ -18,11 +18,13 @@ const PopUpOuter = styled.div`
 const PopUpInner = styled.div`
   position: absolute;
   width: 30%;
-  height: 30%;
+  height: 31%;
   min-width: 350px;
+  min-height: 280px;
   position: fixed;
   left: 50%;
   bottom: 50%;
+  top: 30%;
   transform: translateX(-50%);
   margin: auto;
   border-radius: 20px;
@@ -72,12 +74,15 @@ export default function LoginPopUp() {
   const { setIsLoginPopUpOpen, handleLoginData, handleSignup } = useContext(LoginContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passCheckFailed, setPassCheckFailed] = useState(false);
 
   function handleSubmit() {
     handleLoginData({email, password})
       .then(response => {
         if(response === "success"){
           setIsLoginPopUpOpen(false);
+        }else{
+          setPassCheckFailed(true);
         }
       });
   }
@@ -86,11 +91,16 @@ export default function LoginPopUp() {
     handleSignup({email, password});
   }
 
+  function exitPopUp(){
+    setIsLoginPopUpOpen(false);
+    setPassCheckFailed(false);
+  }
+
   return (
     <PopUpOuter>
       <PopUpInner>
         <RightFlexBox>
-          <XButton onClick={() => setIsLoginPopUpOpen(false)}>&times;</XButton>
+          <XButton onClick={exitPopUp}>&times;</XButton>
         </RightFlexBox>
         <h2>Login</h2>
         <CenterFlexBox>
@@ -107,6 +117,7 @@ export default function LoginPopUp() {
             type="password"
           />
         </CenterFlexBox>
+        {passCheckFailed ? <p style={{color: 'red', margin: '0'}}>Password/Email Incorrect!</p> : null}
         <input onClick={handleSubmit} type="submit" value="Submit" />
         <input onClick={handleSignUpButton} type="submit" value="Sign Up"/>
       </PopUpInner>
