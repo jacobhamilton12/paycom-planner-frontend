@@ -75,11 +75,15 @@ export default function LoginPopUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passCheckFailed, setPassCheckFailed] = useState(false);
+  const [submitFailed, setSubmitFailed] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   function handleSubmit() {
     handleLoginData({email, password})
       .then(response => {
         if(response === "success"){
+          setPassCheckFailed(false);
+          setSubmitMessage("");
           setIsLoginPopUpOpen(false);
         }else{
           setPassCheckFailed(true);
@@ -88,7 +92,17 @@ export default function LoginPopUp() {
   }
 
   function handleSignUpButton() {
-    handleSignup({email, password});
+    setPassCheckFailed(false);
+    handleSignup({email, password})
+      .then(response => {
+        setSubmitMessage(response);
+        if(response === "Success"){
+          console.log("Worked")
+          setSubmitFailed(false);
+        }else{
+          setSubmitFailed(true);
+        }
+      });
   }
 
   function exitPopUp(){
@@ -117,6 +131,7 @@ export default function LoginPopUp() {
             type="password"
           />
         </CenterFlexBox>
+        {submitFailed ? <p style={{color: 'red', margin: '0'}}>{submitMessage}</p> : <p style={{color: 'green', margin: '0'}}>{submitMessage}</p>}
         {passCheckFailed ? <p style={{color: 'red', margin: '0'}}>Password/Email Incorrect!</p> : null}
         <input onClick={handleSubmit} type="submit" value="Submit" />
         <input onClick={handleSignUpButton} type="submit" value="Sign Up"/>

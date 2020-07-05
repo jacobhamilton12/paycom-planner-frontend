@@ -9,27 +9,20 @@ export const LoginProvider = (props) => {
   const [password, setPassword] = useState("");
 
   function handleLoginData(data) {
-    function getCheck(){
-      return axios.post(`/validate_user.php`, data)
-          .then(res => {
-              console.log(res.data);
-              return res.data;
-          });
-    }
-    return getCheck().then(res => {
-      return res;
-    })
+    return axios.post(`/validate_user.php`, data)
+      .then(res => {
+        console.log(res.data);
+        return res.data;
+      });
   }
-
-
 
   function handleSignup(data) {
-    console.log(data);
-    axios.post(`/insert_user.php`, data)
-    .then(res => console.log(res.data));
+    return axios.post(`/insert_user.php`, data)
+      .then(res => {
+        console.log(res.data)
+        return res.data;
+      });
   }
-
-
 
   function openLoginPopUp() {
     setIsLoginPopUpOpen(true);
