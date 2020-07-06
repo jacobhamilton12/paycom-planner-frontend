@@ -11,6 +11,7 @@ import CurrentEventPopUp from "./components/CurrentEventPopUp";
 import { EventContexts } from "./components/EventContexts";
 import { LoginContext } from "./components/LoginContext";
 import LoginPopUp from "./components/LoginPopUp";
+import axios from "axios";
 
 const Title = styled.h1`
   color: yellowgreen;
@@ -28,10 +29,19 @@ const ButtonWrap = styled.div`
 
 function App() {
   const { isNewEventPopUpOpen, isEventPopUpOpen } = useContext(EventContexts);
-  const { isLoginPopUpOpen, openLoginPopUp } = useContext(LoginContext);
+  const { isLoginPopUpOpen, openLoginPopUp, email } = useContext(LoginContext);
+
+  /*function getEmail(){
+    axios.get(`/session.php`)
+      .then(res => {
+        setEmail(res.data);
+      });
+  }*/
+
   return (
     <div className="App">
       <Title color="primary">Paycom Project Planner</Title>
+      {email !== "" ? <p style={{margin: '0'}}>{email}</p> : null}
       <ButtonWrap>
         <Button onClick={openLoginPopUp} className="login" variant="success">
           Log In

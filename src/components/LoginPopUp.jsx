@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button from "react-bootstrap/Button";
 import { LoginContext } from "./LoginContext";
 
+
 const PopUpOuter = styled.div`
   position: fixed;
   width: 100%;
@@ -71,7 +72,7 @@ const Label = styled.label`
 `;
 
 export default function LoginPopUp() {
-  const { setIsLoginPopUpOpen, handleLoginData, handleSignup } = useContext(LoginContext);
+  const { setIsLoginPopUpOpen, handleLoginData, handleSignup, setEmail: setUserEmail } = useContext(LoginContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passCheckFailed, setPassCheckFailed] = useState(false);
@@ -82,6 +83,7 @@ export default function LoginPopUp() {
     handleLoginData({email, password})
       .then(response => {
         if(response === "success"){
+          setUserEmail(email);
           setPassCheckFailed(false);
           setSignUpMessage("");
           setIsLoginPopUpOpen(false);

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { EventContexts } from "./EventContexts";
+import axios from "axios";
 
 const Box = styled.div`
   justify-content: center;
@@ -37,6 +38,10 @@ export default function EventDayContainer({ dateNum }) {
 
   const handleEmptyClick = () => {
     openNewEventPopUp(dateNum);
+    axios.get(`/session.php`)
+      .then(res => {
+        console.log(res.data);
+      });
   };
 
   const handleEventClick = (e, event) => {
