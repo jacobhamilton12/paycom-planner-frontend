@@ -37,10 +37,14 @@ export default function EventDayContainer({ dateNum }) {
   );
 
   const handleEmptyClick = () => {
-    openNewEventPopUp(dateNum);
     axios.get(`/session.php`)
       .then(res => {
-        console.log(res.data);
+        if(res.data !== "Not logged in"){
+          openNewEventPopUp(dateNum);
+          console.log(res.data);
+        }else{
+          console.log(res.data);
+        }
       });
   };
 

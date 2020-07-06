@@ -26,4 +26,12 @@ module.exports = function(app){
                 changeOrigin: true
             })
     );
+    app.use(
+        '/events.php',
+            createProxyMiddleware({
+                target: "http://localhost/paycom-backend",
+                secure: false,
+                changeOrigin: true
+            })
+    );
 }
