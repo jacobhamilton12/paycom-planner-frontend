@@ -77,8 +77,8 @@ export default function CurrentEventPopUp() {
     editEvent,
   } = useContext(EventContexts);
   const [eventName] = useState(eventsData[eventId].name);
-  const [eventDesc] = useState(eventsData[eventId].desc);
-  const [eventDate] = useState(eventsData[eventId].date);
+  const [eventDesc] = useState(eventsData[eventId].description);
+  const [eventDate] = useState(new Date(parseInt(eventsData[eventId].date)));
   return (
     <PopUpOuter>
       <PopUpInner>

@@ -14,7 +14,7 @@ const GrayBox = styled.div`
   background: gray;
 `;
 
-function Day({ day, dateNum }) {
+const Day = React.memo(({ day, dateNum }) => {
   return (
     <Td>
       {dateNum > 0 ? (
@@ -27,6 +27,6 @@ function Day({ day, dateNum }) {
       )}
     </Td>
   );
-}
+});
 
 export default Day;

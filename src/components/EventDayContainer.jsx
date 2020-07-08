@@ -30,8 +30,7 @@ const EventBox = styled.div`
   line-height: 17px;
   text-overflow: ellipsis;
 `;
-
-export default function EventDayContainer({ dateNum }) {
+ const EventDayContainer = React.memo(({ dateNum }) => {
   const { openEventView, openNewEventPopUp, eventsData: events } = useContext(
     EventContexts
   );
@@ -56,15 +55,18 @@ export default function EventDayContainer({ dateNum }) {
   return (
     <Box onClick={handleEmptyClick}>
       {events.map((event) =>
-        event.date.getDate() === dateNum ? (
+        new Date(parseInt(event.date)).getDate() === dateNum ? (
           <EventBox
-            key={event.name + event.date.getTime()}
+            key={event.name + event.date}
             onClick={(e) => handleEventClick(e, event)}
           >
             {event.name}
+            {console.log(event.date, dateNum)}
           </EventBox>
-        ) : null
+          
+        ) : console.log(new Date(parseInt(event.date)).getDate(), dateNum)
       )}
     </Box>
   );
-}
+});
+export default EventDayContainer;

@@ -1,5 +1,6 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useContext } from "react";
 import axios from "axios";
+import { LoginContext } from "./LoginContext";
 
 export const EventContexts = createContext();
 
@@ -13,12 +14,13 @@ export const EventsProvider = (props) => {
   const [month, setMonth] = useState(currentDate.getMonth()); // month is zero indexed
   const [day, setDay] = useState(currentDate.getDay());
   const [eventDate, setEventDate] = useState(new Date(year, month, day));
-  const [eventEdit, setEventEdit] = useState({ name: "", desc: "", date: "" });
+  const [eventEdit, setEventEdit] = useState({ name: "", user: "", desc: "", date: "" });
+  const { email } = useContext(LoginContext)
 
-  function handleNewEventData({name, date, desc}) {
-    setEventsData([...eventsData, {name, date, desc}]);
-    date = date.getTime();
-    axios.post(`/events.php`, {name, date, desc})
+  function handleNewEventData(data) {
+    console.log(eventsData);
+    setEventsData([...eventsData, data]);
+    axios.post(`/events.php`, data)
       .then(res => {
         if(res.data === "success"){
           setIsNewEventPopUpOpen(!isNewEventPopUpOpen);
@@ -29,7 +31,7 @@ export const EventsProvider = (props) => {
       });
   }
 
-  function openNewEventPopUp(dayNum, event = { name: "", desc: "", date: "" }) {
+  function openNewEventPopUp(dayNum, event = { name: "", user: email, description: "", date: "" }) {
     setDay(dayNum);
     setEventEdit(event);
     setEventDate(new Date(year, month, dayNum));
@@ -62,6 +64,7 @@ export const EventsProvider = (props) => {
         setIsNewEventPopUpOpen,
         eventDate,
         eventsData,
+        setEventsData,
         openEventView,
         openNewEventPopUp,
         handleNewEventData,

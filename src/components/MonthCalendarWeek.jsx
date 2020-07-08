@@ -29,7 +29,7 @@ const getDate = (day, month, year) => {
   return num;
 };
 
-const Week = (props) => {
+const Week = React.memo((props) => {
   return (
     <tr>
       {days.map((day) => (
@@ -41,6 +41,6 @@ const Week = (props) => {
       ))}
     </tr>
   );
-};
+});
 
 export default Week;

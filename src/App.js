@@ -28,9 +28,9 @@ const ButtonWrap = styled.div`
 `;
 
 function App() {
-  const { isNewEventPopUpOpen, isEventPopUpOpen } = useContext(EventContexts);
+  const { isNewEventPopUpOpen, isEventPopUpOpen, setEventsData } = useContext(EventContexts);
   const { isLoginPopUpOpen, openLoginPopUp, email } = useContext(LoginContext);
-
+  const [ isLoaded, setIsLoaded] = useState(false);
   /*function getEmail(){
     axios.get(`/session.php`)
       .then(res => {
@@ -38,8 +38,14 @@ function App() {
       });
   }*/
   useEffect(() => {   
-
-  }
+    if(!isLoaded){
+      axios.get(`/getEvents.php`)
+        .then(res => {
+          setEventsData(res.data);
+          setIsLoaded(true);
+        });
+    }
+  })
 
   return (
     <div className="App">

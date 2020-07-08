@@ -36,7 +36,7 @@ const months = [
   "December",
 ];
 
-function MonthCalendar() {
+const MonthCalendar = React.memo(() => {
   const { month, year } = useContext(EventContexts);
   const [menuText, setMenuText] = useState("Month");
 
@@ -62,6 +62,6 @@ function MonthCalendar() {
       </Table>
     </div>
   );
-}
+});
 
 export default MonthCalendar;

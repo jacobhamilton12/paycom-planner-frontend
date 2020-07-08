@@ -7,6 +7,8 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { EventContexts } from "./EventContexts";
+import { LoginContext } from "./LoginContext";
+
 
 const PopUpOuter = styled.div`
   position: fixed;
@@ -96,6 +98,7 @@ export default function NewEventPopUp() {
   const [selectedDate, setSelectedDate] = useState(eventDateCopy);
   const [eventName, setEventName] = useState(eventEdit.name);
   const [eventDesc, setEventDesc] = useState(eventEdit.desc);
+  const { email } = useContext(LoginContext);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -104,8 +107,9 @@ export default function NewEventPopUp() {
   function handleSubmit() {
     handleNewEventData({
       name: eventName,
-      date: selectedDate,
-      desc: eventDesc,
+      user: email,
+      date: selectedDate.getTime().toString(),
+      description: eventDesc,
     });
   }
 

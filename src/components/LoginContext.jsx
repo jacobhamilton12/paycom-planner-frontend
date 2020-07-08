@@ -11,7 +11,6 @@ export const LoginProvider = (props) => {
   function handleLoginData(data) {
     return axios.post(`/validate_user.php`, data)
       .then(res => {
-        console.log(res.data);
         return res.data;
       });
   }
@@ -19,7 +18,6 @@ export const LoginProvider = (props) => {
   function handleSignup(data) {
     return axios.post(`/insert_user.php`, data)
       .then(res => {
-        console.log(res.data)
         return res.data;
       });
   }
