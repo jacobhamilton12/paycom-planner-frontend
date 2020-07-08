@@ -42,4 +42,12 @@ module.exports = function(app){
                 changeOrigin: true
             })
     );
+    app.use(
+        '/logout.php',
+            createProxyMiddleware({
+                target: "http://localhost/paycom-backend",
+                secure: false,
+                changeOrigin: true
+            })
+    );
 }

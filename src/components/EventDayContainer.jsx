@@ -40,9 +40,8 @@ const EventBox = styled.div`
       .then(res => {
         if(res.data !== "Not logged in"){
           openNewEventPopUp(dateNum);
-          console.log(res.data);
         }else{
-          console.log(res.data);
+          alert(res.data);
         }
       });
   };
@@ -61,10 +60,9 @@ const EventBox = styled.div`
             onClick={(e) => handleEventClick(e, event)}
           >
             {event.name}
-            {console.log(event.date, dateNum)}
           </EventBox>
           
-        ) : console.log(new Date(parseInt(event.date)).getDate(), dateNum)
+        ) : null
       )}
     </Box>
   );
