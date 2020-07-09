@@ -28,7 +28,7 @@ const ButtonWrap = styled.div`
 `;
 
 function App() {
-  const { isNewEventPopUpOpen, isEventPopUpOpen, setEventsData } = useContext(EventContexts);
+  const { isNewEventPopUpOpen, isEventPopUpOpen, setEventsData, eventsData } = useContext(EventContexts);
   const { isLoginPopUpOpen, openLoginPopUp, openLogoutPopUp, getEmail, email, isLogoutPopUpOpen } = useContext(LoginContext);
   const [ isLoaded, setIsLoaded] = useState(false);
   

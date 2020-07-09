@@ -14,27 +14,26 @@ export const EventsProvider = (props) => {
   const [month, setMonth] = useState(currentDate.getMonth()); // month is zero indexed
   const [day, setDay] = useState(currentDate.getDay());
   const [eventDate, setEventDate] = useState(new Date(year, month, day));
-  const [eventEdit, setEventEdit] = useState({ name: "", user: "", desc: "", date: "" });
+  const [eventEdit, setEventEdit] = useState({ name: "", user: "", description: "", date: "" });
   const { email } = useContext(LoginContext)
 
   function handleNewEventData(data) {
-    console.log(eventsData);
-    setEventsData([...eventsData, data]);
     axios.post(`/events.php`, data)
       .then(res => {
         if(res.data === "success"){
           setIsNewEventPopUpOpen(!isNewEventPopUpOpen);
           console.log(res.data);
         }else{
-          console.log(res.data);
+          console.log(res);
         }
       });
+    setEventsData([...eventsData, data]);
   }
 
-  function openNewEventPopUp(dayNum, event = { name: "", user: email, description: "", date: "" }) {
+  function openNewEventPopUp(dayNum, eyear, emonth, event = { name: "", user: email, description: "", date: "" }) {
     setDay(dayNum);
     setEventEdit(event);
-    setEventDate(new Date(year, month, dayNum));
+    setEventDate(new Date(eyear, emonth, dayNum));
     setIsNewEventPopUpOpen(true);
   }
 
@@ -44,15 +43,23 @@ export const EventsProvider = (props) => {
   }
 
   function deleteEvent(index) {
-    setIsEventPopUpOpen(false);
-    let array = [...eventsData];
-    array.splice(index, 1);
-    setEventsData(array);
+    axios.post(`/deleteEvent.php`, eventsData[index])
+      .then(res => {
+        if(res !== "failed"){
+          setIsEventPopUpOpen(false);
+          let array = [...eventsData];
+          array.splice(index, 1);
+          setEventsData(array);
+        }else{
+          console.log(res);
+        }
+      });
+    
   }
 
   function editEvent(index) {
     let event = eventsData[index];
-    let dayNum = event.date.getDate();
+    let dayNum = new Date(parseInt(event.date)).getDate();
     deleteEvent(index);
     openNewEventPopUp(dayNum, event);
   }

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import styled from "@emotion/styled";
 import { EventContexts } from "./EventContexts";
 import Button from "react-bootstrap/Button";
+import { LoginContext } from "./LoginContext";
 
 const PopUpOuter = styled.div`
   position: fixed;
@@ -79,6 +80,7 @@ export default function CurrentEventPopUp() {
   const [eventName] = useState(eventsData[eventId].name);
   const [eventDesc] = useState(eventsData[eventId].description);
   const [eventDate] = useState(new Date(parseInt(eventsData[eventId].date)));
+  const { email } = useContext(LoginContext);
   return (
     <PopUpOuter>
       <PopUpInner>
@@ -91,6 +93,8 @@ export default function CurrentEventPopUp() {
           <h6>Description: </h6>
           <Paragraph>{eventDesc}</Paragraph>
           <ButtonWrapper>
+            { email !== "" ? 
+            <div>
             <Button variant="warning" onClick={() => editEvent(eventId)}>
               Edit
             </Button>
@@ -101,6 +105,8 @@ export default function CurrentEventPopUp() {
             >
               Delete
             </Button>
+            </div>
+               : null }
           </ButtonWrapper>
         </CenterBox>
       </PopUpInner>

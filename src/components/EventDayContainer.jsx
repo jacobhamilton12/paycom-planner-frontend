@@ -30,7 +30,7 @@ const EventBox = styled.div`
   line-height: 17px;
   text-overflow: ellipsis;
 `;
- const EventDayContainer = React.memo(({ dateNum }) => {
+ const EventDayContainer = React.memo(({ dateNum, eyear, emonth }) => {
   const { openEventView, openNewEventPopUp, eventsData: events } = useContext(
     EventContexts
   );
@@ -39,7 +39,7 @@ const EventBox = styled.div`
     axios.get(`/session.php`)
       .then(res => {
         if(res.data !== "Not logged in"){
-          openNewEventPopUp(dateNum);
+          openNewEventPopUp(dateNum, eyear, emonth);
         }else{
           alert(res.data);
         }
@@ -51,10 +51,14 @@ const EventBox = styled.div`
     e.stopPropagation();
   };
 
+  function DateObj(date){
+    return new Date(parseInt(date));
+  }
+
   return (
     <Box onClick={handleEmptyClick}>
       {events.map((event) =>
-        new Date(parseInt(event.date)).getDate() === dateNum ? (
+        DateObj(event.date).getDate() === dateNum &&  DateObj(event.date).getMonth() === emonth && DateObj(event.date).getFullYear() === eyear ? (
           <EventBox
             key={event.name + event.date}
             onClick={(e) => handleEventClick(e, event)}
