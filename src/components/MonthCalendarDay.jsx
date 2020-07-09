@@ -14,19 +14,15 @@ const GrayBox = styled.div`
   background: gray;
 `;
 
-function Day({ day, dateNum }) {
+const Day = React.memo(({ date }) => {
   return (
     <Td>
-      {dateNum > 0 ? (
-        <div>
-          {day + ", " + dateNum}
-          <EventDayContainer dateNum={dateNum} />
-        </div>
-      ) : (
-        <GrayBox />
-      )}
+      <div>
+        {date.d}
+        <EventDayContainer dateNum={date.d} eyear={date.y} emonth={date.m} />
+      </div>
     </Td>
   );
-}
+});
 
 export default Day;

@@ -54,3 +54,13 @@ body {
     transform: rotate(360deg);
   }
 }
+
+.button:hover {
+  border-top-color: #28a669;
+  background: #28a669;
+  color: #ccc;
+  }
+.button:active {
+  border-top-color: #1b5c34;
+  background: #1b5c34;
+  }

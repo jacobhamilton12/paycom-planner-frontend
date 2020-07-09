@@ -5,31 +5,34 @@ export const LoginContext = createContext();
 
 export const LoginProvider = (props) => {
   const [isLoginPopUpOpen, setIsLoginPopUpOpen] = useState(false);
+  const [isLogoutPopUpOpen, setIsLogoutPopUpOpen] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   function handleLoginData(data) {
-    function getCheck(){
-      return axios.post(`/validate_user.php`, data)
-          .then(res => {
-              console.log(res.data);
-              return res.data;
-          });
-    }
-    return getCheck().then(res => {
-      return res;
-    })
+    return axios.post(`/validate_user.php`, data)
+      .then(res => {
+        return res.data;
+      });
   }
 
+  function openLogoutPopUp(){
+    setIsLogoutPopUpOpen(true);
+  }
 
+  function getEmail(){
+    axios.get(`/session.php`)
+      .then(res => {
+        setEmail(res.data);
+      });
+  }
 
   function handleSignup(data) {
-    console.log(data);
-    axios.post(`/insert_user.php`, data)
-    .then(res => console.log(res.data));
+    return axios.post(`/insert_user.php`, data)
+      .then(res => {
+        return res.data;
+      });
   }
-
-
 
   function openLoginPopUp() {
     setIsLoginPopUpOpen(true);
@@ -43,6 +46,14 @@ export const LoginProvider = (props) => {
         openLoginPopUp,
         handleLoginData,
         handleSignup,
+        loggedIn, 
+        setLoggedIn,
+        email, 
+        setEmail,
+        getEmail,
+        openLogoutPopUp,
+        isLogoutPopUpOpen,
+        setIsLogoutPopUpOpen
       }}
     >
       {props.children}

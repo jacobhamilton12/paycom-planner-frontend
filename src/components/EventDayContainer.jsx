@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
 import { EventContexts } from "./EventContexts";
+import axios from "axios";
 
 const Box = styled.div`
   justify-content: center;
@@ -29,14 +30,20 @@ const EventBox = styled.div`
   line-height: 17px;
   text-overflow: ellipsis;
 `;
-
-export default function EventDayContainer({ dateNum }) {
+ const EventDayContainer = React.memo(({ dateNum, eyear, emonth }) => {
   const { openEventView, openNewEventPopUp, eventsData: events } = useContext(
     EventContexts
   );
 
   const handleEmptyClick = () => {
-    openNewEventPopUp(dateNum);
+    axios.get(`/session.php`)
+      .then(res => {
+        if(res.data !== "Not logged in"){
+          openNewEventPopUp(dateNum, eyear, emonth);
+        }else{
+          alert(res.data);
+        }
+      });
   };
 
   const handleEventClick = (e, event) => {
@@ -44,18 +51,24 @@ export default function EventDayContainer({ dateNum }) {
     e.stopPropagation();
   };
 
+  function DateObj(date){
+    return new Date(parseInt(date));
+  }
+
   return (
     <Box onClick={handleEmptyClick}>
       {events.map((event) =>
-        event.date.getDate() === dateNum ? (
+        DateObj(event.date).getDate() === dateNum &&  DateObj(event.date).getMonth() === emonth && DateObj(event.date).getFullYear() === eyear ? (
           <EventBox
-            key={event.name + event.date.getTime()}
+            key={event.name + event.date}
             onClick={(e) => handleEventClick(e, event)}
           >
             {event.name}
           </EventBox>
+          
         ) : null
       )}
     </Box>
   );
-}
+});
+export default EventDayContainer;
