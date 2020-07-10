@@ -74,13 +74,17 @@ export default function CurrentEventPopUp() {
     setIsEventPopUpOpen,
     eventId,
     eventsData,
+    setEventsData,
     deleteEvent,
     editEvent,
+    incrementAttendees,
+    removeAttendee,
   } = useContext(EventContexts);
   const [eventName] = useState(eventsData[eventId].name);
   const [eventDesc] = useState(eventsData[eventId].description);
   const [eventDate] = useState(new Date(parseInt(eventsData[eventId].date)));
   const { email } = useContext(LoginContext);
+
   return (
     <PopUpOuter>
       <PopUpInner>
@@ -90,23 +94,31 @@ export default function CurrentEventPopUp() {
         <h2>{eventName}</h2>
         <CenterBox>
           <h6>{"Time: " + eventDate.toLocaleString()}</h6>
+          {email === eventsData[eventId].user ? 
+            <h6>Attendees: {JSON.parse(eventsData[eventId].attendees).length}</h6>
+            : null}
           <h6>Description: </h6>
           <Paragraph>{eventDesc}</Paragraph>
           <ButtonWrapper>
-            { email !== "" ? 
-            <div>
-            <Button variant="warning" onClick={() => editEvent(eventId)}>
-              Edit
-            </Button>
-            <Button
-              style={{ marginLeft: "10px" }}
-              onClick={() => deleteEvent(eventId)}
-              variant="danger"
-            >
-              Delete
-            </Button>
-            </div>
-               : null }
+            { email === eventsData[eventId].user ? 
+              <div>
+              
+              <Button variant="warning" onClick={() => editEvent(eventId)}>
+                Edit
+              </Button>
+              <Button
+                style={{ marginLeft: "10px" }}
+                onClick={() => deleteEvent(eventId)}
+                variant="danger"
+              >
+                Delete
+              </Button>
+              </div>
+                : 
+                JSON.parse(eventsData[eventId].attendees).indexOf(email) === -1 ?
+                    <Button variant="success" onClick={() => incrementAttendees(eventId)}>Click To Attend</Button>
+                  :
+                    <Button variant="danger" onClick={() => removeAttendee(eventId)}>Click to Unattend</Button>}
           </ButtonWrapper>
         </CenterBox>
       </PopUpInner>

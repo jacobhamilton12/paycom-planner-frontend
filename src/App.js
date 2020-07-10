@@ -15,7 +15,7 @@ import LogoutPopUp from "./components/LogoutPopUp";
 import axios from "axios";
 
 const Title = styled.h1`
-  color: yellowgreen;
+  color: #e4e4e4;
 `;
 
 const ButtonWrap = styled.div`
@@ -28,7 +28,7 @@ const ButtonWrap = styled.div`
 `;
 
 function App() {
-  const { isNewEventPopUpOpen, isEventPopUpOpen, setEventsData, eventsData } = useContext(EventContexts);
+  const { isNewEventPopUpOpen, isEventPopUpOpen, setEventsData } = useContext(EventContexts);
   const { isLoginPopUpOpen, openLoginPopUp, openLogoutPopUp, getEmail, email, isLogoutPopUpOpen } = useContext(LoginContext);
   const [ isLoaded, setIsLoaded] = useState(false);
   
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <div className="App">
-      <Title color="primary">Paycom Project Planner</Title>
+      <Title>Paycom Project Planner</Title>
       <ButtonWrap>
         <Button onClick={email === "" ? openLoginPopUp : openLogoutPopUp} className="login" variant="success">
           {email !== "" ? "Logged in as: " + email : "Log In" }

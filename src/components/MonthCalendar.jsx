@@ -14,7 +14,7 @@ const Table = styled.table`
   transform: translateX(-50%);
   margin-top: 0;
   table-layout: fixed;
-  background: white;
+  background: #fdfdfd;
 `;
 const Thead = styled.thead`
   margin-bottom: 0;
@@ -41,6 +41,11 @@ const dayIds = [[0, 1, 2, 3, 4, 5, 6],
                 [21, 22, 23, 24, 25, 26, 27],
                 [28, 29, 30, 31, 32, 33, 34],
                 [35, 36, 37, 38, 39, 40, 41]];
+
+const Td = styled.td`
+  border: 1px solid black;
+  font-size: calc(6px + 0.5vw);
+`;
 
 const months = [
   "January",
@@ -108,7 +113,7 @@ const MonthCalendar = React.memo(() => {
       <Table>
         <Thead>
           <tr>
-            <td>{"" + months[month] + " " + year}</td>
+            <Td>{"" + months[month] + " " + year}</Td>
             <td>
               <Button onClick={subtractMonth} className="button">Prev Month</Button>
             </td>
@@ -118,7 +123,7 @@ const MonthCalendar = React.memo(() => {
           </tr>
           <tr>
             {days.map((day) => (
-              <td>{day}</td>
+              <Td key={day}>{day}</Td>
             ))}
           </tr>
         </Thead>

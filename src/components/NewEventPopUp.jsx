@@ -114,6 +114,7 @@ export default function NewEventPopUp() {
         user: email,
         date: selectedDate.getTime().toString(),
         description: eventDesc,
+        attendees: '[]',
       });
     }
   }

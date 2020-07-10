@@ -14,15 +14,15 @@ export const EventsProvider = (props) => {
   const [month, setMonth] = useState(currentDate.getMonth()); // month is zero indexed
   const [day, setDay] = useState(currentDate.getDay());
   const [eventDate, setEventDate] = useState(new Date(year, month, day));
-  const [eventEdit, setEventEdit] = useState({ name: "", user: "", description: "", date: "" });
+  const [eventEdit, setEventEdit] = useState({});
   const { email } = useContext(LoginContext)
 
   function handleNewEventData(data) {
     axios.post(`/events.php`, data)
       .then(res => {
         if(res.data === "success"){
-          setIsNewEventPopUpOpen(!isNewEventPopUpOpen);
-          console.log(res.data);
+          setIsNewEventPopUpOpen(false);
+          console.log(res);
         }else{
           console.log(res);
         }
@@ -30,7 +30,43 @@ export const EventsProvider = (props) => {
     setEventsData([...eventsData, data]);
   }
 
-  function openNewEventPopUp(dayNum, eyear, emonth, event = { name: "", user: email, description: "", date: "" }) {
+  function incrementAttendees(eventId){
+    let copy = [...eventsData];
+    let event = {...copy[eventId]};
+    let array = JSON.parse(event.attendees);
+    array.push(email);
+    event.attendees = JSON.stringify(array);
+    copy[eventId] = event;
+    axios.post(`/incrementAttendees.php`, event)
+      .then(res => {
+        console.log(res);
+        if(res.data === "success"){
+          setEventsData(copy);
+        }else{
+          console.log(eventsData)
+        }
+      });
+  }
+
+  function removeAttendee(eventId){
+    let copy = [...eventsData];
+    let event = {...copy[eventId]};
+    let array = JSON.parse(event.attendees);
+    array.splice(array.indexOf(email), 1);
+    event.attendees = JSON.stringify(array);
+    copy[eventId] = event;
+    axios.post(`/removeAttendee.php`, event)
+      .then(res => {
+        console.log(res);
+        if(res.data === "success"){
+          setEventsData(copy);
+        }else{
+          console.log(eventsData)
+        }
+      });
+  }
+
+  function openNewEventPopUp(dayNum, eyear, emonth, event = { name: "", user: email, description: "", date: "", attendees: [] }) {
     setDay(dayNum);
     setEventEdit(event);
     setEventDate(new Date(eyear, emonth, dayNum));
@@ -88,6 +124,8 @@ export const EventsProvider = (props) => {
         setCurrentDate,
         editEvent,
         eventEdit,
+        incrementAttendees,
+        removeAttendee,
       }}
     >
       {props.children}

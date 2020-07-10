@@ -23,7 +23,10 @@ export const LoginProvider = (props) => {
   function getEmail(){
     axios.get(`/session.php`)
       .then(res => {
-        setEmail(res.data);
+        if(res.data !== "Not logged in"){
+          setEmail(res.data);
+        }
+        
       });
   }
 

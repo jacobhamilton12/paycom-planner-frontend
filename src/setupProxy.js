@@ -58,4 +58,20 @@ module.exports = function(app){
                 changeOrigin: true
             })
     );
+    app.use(
+        '/incrementAttendees.php',
+            createProxyMiddleware({
+                target: "http://localhost/paycom-backend",
+                secure: false,
+                changeOrigin: true
+            })
+    );
+    app.use(
+        '/removeAttendee.php',
+            createProxyMiddleware({
+                target: "http://localhost/paycom-backend",
+                secure: false,
+                changeOrigin: true
+            })
+    );
 }
