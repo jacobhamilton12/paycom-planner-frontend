@@ -96,8 +96,10 @@ export const EventsProvider = (props) => {
   function editEvent(index) {
     let event = eventsData[index];
     let dayNum = new Date(parseInt(event.date)).getDate();
+    let month = new Date(parseInt(event.date)).getMonth();
+    let year = new Date(parseInt(event.date)).getFullYear();
     deleteEvent(index);
-    openNewEventPopUp(dayNum, event);
+    openNewEventPopUp(dayNum, year, month, event);
   }
 
   return (

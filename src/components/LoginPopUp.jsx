@@ -13,13 +13,13 @@ const PopUpOuter = styled.div`
   right: 0;
   bottom: 0;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #00c15e;
 `;
 
 const PopUpInner = styled.div`
   position: absolute;
   width: 30%;
-  height: 31%;
+  height: 20%;
   min-width: 350px;
   min-height: 280px;
   position: fixed;
@@ -30,24 +30,6 @@ const PopUpInner = styled.div`
   margin: auto;
   border-radius: 20px;
   background: white;
-`;
-
-const XButton = styled.div`
-  border: 1px solid lightgray;
-  color: white;
-  background: lightgray;
-  height: 18px;
-  width: 18px;
-  cursor: pointer;
-  margin-right: 10px;
-  line-height: 17px;
-  border-radius: 50%;
-`;
-
-const RightFlexBox = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 10px;
 `;
 const CenterFlexBox = styled.div`
   position: relative;
@@ -117,10 +99,7 @@ export default function LoginPopUp() {
   return (
     <PopUpOuter>
       <PopUpInner>
-        <RightFlexBox>
-          <XButton onClick={exitPopUp}>&times;</XButton>
-        </RightFlexBox>
-        <h2>Login</h2>
+        <h2 style={{marginTop: "3%"}}>Login</h2>
         <CenterFlexBox>
           <Label>Email: </Label>
           <Input
@@ -137,7 +116,7 @@ export default function LoginPopUp() {
         </CenterFlexBox>
         {signUpFailed ? <p style={{color: 'red', margin: '0'}}>{signUpMessage}</p> : <p style={{color: 'green', margin: '0'}}>{signUpMessage}</p>}
         {passCheckFailed ? <p style={{color: 'red', margin: '0'}}>Password/Email Incorrect!</p> : null}
-        <input onClick={handleSubmit} type="submit" value="Submit" />
+        <input style={{marginRight: "5px"}} onClick={handleSubmit} type="submit" value="Submit" />
         <input onClick={handleSignUpButton} type="submit" value="Sign Up"/>
       </PopUpInner>
     </PopUpOuter>

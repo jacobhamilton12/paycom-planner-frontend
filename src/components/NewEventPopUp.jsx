@@ -73,11 +73,14 @@ const Input = styled.input`
   border: 2px solid #73ad21;
   border-radius: 5px;
   width: 50%;
+  margin-right: 5px;
 `;
 
 const CenterFlexBox = styled.div`
   display: flex;
   justify-content: center;
+  align-items: baseline;
+  maring-top: 0px;
 `;
 
 export default function NewEventPopUp() {
@@ -127,15 +130,15 @@ export default function NewEventPopUp() {
             &times;
           </XButton>
         </RightFlexBox>
-        <h2>Create New Event:</h2>
+        <h2 style={{marginBottom: "0px"}}>Create New Event:</h2>
         <CenterFlexBox>
-          <label>Event Name:</label>
+          <b><label style={{paddingRight: "5px"}}>Event Name:</label></b>
           <Input
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
             type="text"
           />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <MuiPickersUtilsProvider style={{"paddingBottom":"20px"}} utils={DateFnsUtils}>
             <KeyboardTimePicker
               margin="normal"
               id="time-picker"
@@ -148,7 +151,7 @@ export default function NewEventPopUp() {
             />
           </MuiPickersUtilsProvider>
         </CenterFlexBox>
-        <P>Description:</P>
+        <b><P>Description:</P></b>
         <TextArea
           onChange={(e) => setEventDesc(e.target.value)}
           value={eventDesc}

@@ -54,7 +54,7 @@ function App() {
       </ButtonWrap>
       
       <MonthCalendar />
-      <div>{isLoginPopUpOpen ? <LoginPopUp /> : null}</div>
+      <div>{email === "" ? <LoginPopUp /> : null}</div>
       <div>{isLogoutPopUpOpen ? <LogoutPopUp /> : null}</div>
       <div>{isNewEventPopUpOpen ? <NewEventPopUp /> : null}</div>
       <div>{isEventPopUpOpen ? <CurrentEventPopUp /> : null}</div>
